@@ -10,7 +10,8 @@
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
-    "**/dist/**": true
+    "**/dist/**": true,
+    "**/yarn.lock": true
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
