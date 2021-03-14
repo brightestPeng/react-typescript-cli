@@ -9,21 +9,25 @@ import webpackDevConfig from './webpack/webpack.dev';
 
 async function start() {
   const app: Express = express();
-  const port = await getPort({
-    host: config.host,
-    port: config.port,
-  });
-  const url = `http://${config.host}:${port}`;
+  // const port = await getPort({
+  //   host: config.host,
+  //   port: config.port,
+  // });
+  // const url = `http://${config.host}:${port}`;
 
-  webpackDevConfig.plugins?.concat(
-    new OpenBrowserPlugin({
-      url,
-    }),
-  );
+  // webpackDevConfig.plugins?.concat(
+  //   new OpenBrowserPlugin({
+  //     url,
+  //   }),
+  // );
 
-  const compiler: Compiler = webpack(
-    webpackDevConfig,
-  );
+  // const compiler: Compiler = webpack(
+  //   webpackDevConfig,
+  // );
+
+  app.use("/",(req,res)=>{
+    res.body = 
+  })
 
   app.listen(port, config.host, () => {
     console.log(`listen on ${chalk.green(url)}`);
