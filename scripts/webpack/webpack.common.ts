@@ -1,5 +1,9 @@
 import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import Webpackbar from 'webpackbar';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { resolve } from 'path';
 
 import config from '../utils/config';
 
@@ -24,7 +28,7 @@ const getCssLoaders = (importLoaders: number) => [
 ];
 
 const commonConfig: Configuration = {
-  entry: ['react-hot-loader/patch', config.entryPath],
+  entry: config.entryPath,
   output: {
     filename: '[name].[chunkhash:8].js',
     path: config.buildPath,
@@ -79,8 +83,23 @@ const commonConfig: Configuration = {
     },
   },
   plugins: [
+    new Webpackbar({
+      color: 'pink',
+    }),
     new HtmlWebpackPlugin({
       template: `${config.basePath}/public/index.html`,
+    }),
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: resolve(config.basePath, '/public'),
+          to: config.buildPath,
+          globOptions: {
+            ignore: ['index.html'],
+          },
+        },
+      ],
     }),
   ],
 };

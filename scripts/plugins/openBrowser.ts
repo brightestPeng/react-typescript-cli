@@ -29,6 +29,10 @@ class OpenBrowserPlugin {
       }
     };
 
+    compiler.hooks.afterPlugins.tap('trest', (stats: Compiler) => {
+      console.log(stats);
+    });
+
     compiler.hooks.done.tap(
       'open-browser-plugin',
       (stats: Stats) => !this.isRun && handler(stats),

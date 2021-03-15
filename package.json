@@ -12,6 +12,7 @@
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "@types/chalk": "^2.2.0",
+    "@types/copy-webpack-plugin": "^6.4.0",
     "@types/express": "^4.17.11",
     "@types/get-port": "^4.2.0",
     "@types/html-webpack-plugin": "^3.2.4",
@@ -27,6 +28,8 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "chalk": "^4.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^8.0.0",
     "css-loader": "^5.1.2",
     "eslint": "^7.21.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -60,6 +63,7 @@
     "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^5.7.3",
+    "webpackbar": "^5.0.0-3",
     "yargs": "^16.2.0"
   },
   "dependencies": {
@@ -70,7 +74,8 @@
     "react-hot-loader": "^4.13.0"
   },
   "scripts": {
-    "start": "ts-node --files --project ./scripts/tsconfig.json ./scripts/start.ts --open"
+    "start": "ts-node --files --project ./scripts/tsconfig.json ./scripts/start.ts --open",
+    "build": "ts-node --files --project ./scripts/tsconfig.json ./scripts/build.ts"
   },
   "husky": {
     "hooks": {
