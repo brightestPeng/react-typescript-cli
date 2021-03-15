@@ -22,7 +22,7 @@ export default {
   host: '127.0.0.1',
   port: [3000, 8080],
   basePath,
-  entryPath: `${basePath}/src`,
-  buildPath: `${basePath}/build`,
+  entryPath: path.resolve(basePath,"src/main.tsx"),
+  buildPath: path.resolve(basePath,"build"),
   proxy,
 };

@@ -1,5 +1,5 @@
-const OFF = 0;
-const ERROR = 2;
+const OFF = 'off';
+const ERROR = 'error';
 
 module.exports = {
   env: {
@@ -10,9 +10,8 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb/hooks',
-
     'plugin:react/recommended',
-
+    'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
@@ -27,12 +26,7 @@ module.exports = {
     'import/resolver': {
       node: {
         // import 模块时，不写后缀将尝试导入的后缀，出现频率高的文件类型放前面
-        extensions: [
-          '.tsx',
-          '.ts',
-          '.js',
-          '.json',
-        ],
+        extensions: ['.tsx', '.ts', '.js', '.json'],
       },
     },
   },
@@ -51,10 +45,12 @@ module.exports = {
 
     '@typescript-eslint/no-use-before-define': ERROR,
     '@typescript-eslint/no-useless-constructor': ERROR,
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
 
     'lines-between-class-members': OFF,
     'no-console': OFF,
-  
     'no-unused-expressions': OFF,
     'no-use-before-define': OFF,
     'no-useless-constructor': OFF,

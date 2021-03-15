@@ -10,10 +10,11 @@
           "safari": "11.1"
         },
         "useBuiltIns": "usage",
-        "corejs": "3.6.5"
+        "corejs": "2.0.0"
       }
     ],
     "@babel/preset-react",
     "@babel/preset-typescript"
-  ]
+  ],
+  "plugins": ["react-hot-loader/babel"]
 }
