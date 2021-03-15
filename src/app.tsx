@@ -4,7 +4,7 @@ import Counter from './counter';
 
 const App: React.FC = () => (
   <div>
-    Hello,World22233333ss!
+    Hello,World!
     <Counter />
   </div>
 );
