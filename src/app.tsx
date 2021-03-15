@@ -5,6 +5,7 @@ import Counter from './counter';
 const App: React.FC = () => (
   <div>
     Hello,World!
+    
     <Counter />
   </div>
 );
