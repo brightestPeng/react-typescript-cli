@@ -3,18 +3,20 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import Webpackbar from 'webpackbar';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { Options as HtmlMiniOptions } from 'html-minifier';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import { resolve } from 'path';
 
 import config from '../utils/config';
 
 const getCssLoaders = (importLoaders: number) => [
-  {
-    loader: 'style-loader',
-  },
+  config.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
   {
     loader: 'css-loader',
     options: {
-      module: false,
+      modules: false,
       sourceMap: true,
       importLoaders,
     },
@@ -27,10 +29,21 @@ const getCssLoaders = (importLoaders: number) => [
   },
 ];
 
+// 压缩html配置
+const htmlMiniOptions: HtmlMiniOptions = {
+  collapseWhitespace: true,
+  keepClosingSlash: true,
+  removeComments: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+  useShortDoctype: true,
+};
+
 const commonConfig: Configuration = {
-  entry: config.entryPath,
+  entry: ['react-hot-loader/babel', config.entryPath],
   output: {
-    filename: '[name].[chunkhash:8].js',
+    filename: 'js/[name].[fullhash:8].js',
     path: config.buildPath,
   },
   module: {
@@ -42,7 +55,7 @@ const commonConfig: Configuration = {
       },
       {
         test: /\.css/,
-        use: getCssLoaders(1),
+        use: getCssLoaders(0),
       },
       {
         test: /\.less/,
@@ -84,22 +97,32 @@ const commonConfig: Configuration = {
   },
   plugins: [
     new Webpackbar({
-      color: 'pink',
+      name: 'react-typescript-cli',
+      color: 'green',
     }),
+    new FriendlyErrorsWebpackPlugin(),
     new HtmlWebpackPlugin({
+      minify: config.isDev ? false : htmlMiniOptions,
       template: `${config.basePath}/public/index.html`,
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: resolve(config.basePath, '/public'),
-          to: config.buildPath,
+          context: config.basePath,
+          from: 'public',
+          to: '../build',
           globOptions: {
-            ignore: ['index.html'],
+            ignore: ['**/index.html'],
           },
         },
       ],
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        memoryLimit: 1024,
+        configFile: resolve(config.basePath, './src/tsconfig.json'),
+      },
     }),
   ],
 };
