@@ -5,7 +5,8 @@
   "search.exclude": {
     "**/node_modules": true,
     "dist": true,
-    "yarn.lock": true
+    "yarn.lock": true,
+    "package-lock.json": true
   },
   // 排除部分文件监视，避免内存占用过高
   "files.watcherExclude": {
@@ -13,7 +14,8 @@
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
     "**/dist/**": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "**/package-lock.json": true
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
