@@ -15,10 +15,7 @@ const middlewares = (compiler: Compiler) => {
     heartbeat: 2000,
   };
 
-  return [
-    webpackDevMiddleware(compiler, devMiddlewareOptions),
-    webpackHotMiddleware(compiler, hotMiddlewareOptions),
-  ];
+  return [webpackDevMiddleware(compiler, devMiddlewareOptions), webpackHotMiddleware(compiler, hotMiddlewareOptions)];
 };
 
 export default middlewares;

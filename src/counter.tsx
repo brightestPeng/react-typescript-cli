@@ -14,7 +14,7 @@ const Counter: React.FC = () => {
     };
   }, []);
 
-  return <div>{count}</div>;
+  return <div className="counter">{count}</div>;
 };
 
 export default Counter;

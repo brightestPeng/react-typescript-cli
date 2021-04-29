@@ -1,4 +1,4 @@
-import { Compiler, Stats } from 'webpack';
+import { Compiler, Stats, WebpackPluginInstance } from 'webpack';
 import open from 'open';
 
 export interface OpenBrowserOptions {
@@ -6,18 +6,15 @@ export interface OpenBrowserOptions {
   delay?: number;
 }
 
-class OpenBrowserPlugin {
-  private isRun = false;
+class OpenBrowserPlugin implements WebpackPluginInstance {
+  private open = false;
   protected options: OpenBrowserOptions;
   constructor(options: OpenBrowserOptions) {
     this.options = options;
   }
-
   apply(compiler: Compiler): void {
     const handler = (stats: Stats) => {
-      this.isRun = true;
-
-      // 如果编译不报错,存在url,自动打开浏览器
+      this.open = true;
       if (this.options.url && !stats.hasErrors()) {
         if (this.options.delay) {
           setTimeout(() => {
@@ -28,11 +25,8 @@ class OpenBrowserPlugin {
         }
       }
     };
-
-    compiler.hooks.done.tap(
-      'open-browser-plugin',
-      (stats: Stats) => !this.isRun && handler(stats),
-    );
+    // 编译完成打开浏览器
+    compiler.hooks.done.tap('open-browser-plugin', (stats: Stats) => !this.open && handler(stats));
   }
 }
 

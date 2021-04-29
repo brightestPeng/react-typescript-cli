@@ -89,15 +89,15 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0"
-  },
+  },  
   "scripts": {
-    "start": "cross-env NODE_ENV=development ts-node --files --project ./scripts/tsconfig.json ./scripts/start.ts --open",
-    "build": "cross-env NODE_ENV=production ts-node --files --project ./scripts/tsconfig.json ./scripts/build.ts"
+    "start": "ts-node --files --project ./scripts/tsconfig.json ./scripts/start.ts --open",
+    "build": "ts-node --files --project ./scripts/tsconfig.json ./scripts/build.ts"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -c .commitlintrc.js"
+      "commit-msg": "yarn commitlint --edit $1"
     }
   },
   "lint-staged": {
@@ -105,7 +105,7 @@
       "eslint -c .eslintrc.js"
     ],
     "*.{css,less,scss}": [
-      "stylelint --config .stylelintrc.json"
+      "stylelint --config .stylelintrc.js"
     ],
     "*.{ts,tsx,js,jsx,css,less,scss,html}": [
       "prettier --write"

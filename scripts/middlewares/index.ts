@@ -2,14 +2,13 @@ import { Express } from 'express';
 import { Compiler } from 'webpack';
 
 import proxy from './proxyMiddleware';
-import hotMiddleware from './hotMiddleware';
+import middlewares from './hotMiddleware';
 
 const steupMiddlewares = (server: Express, complier: Compiler) => {
-  // 反向代理
+  // 配置代理
   proxy(server);
-
-  // 热加载
-  server.use(hotMiddleware(complier));
+  // 热加载  server => express
+  server.use(middlewares(complier));
 };
 
 export default steupMiddlewares;
